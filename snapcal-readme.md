@@ -7,15 +7,17 @@
 
 > Snap a photo of your food, get instant calorie estimates and nutritional information
 
-## 📖 Table of Contentsd
+## 📖 Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
 - [Technologies](#technologies)
+- [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Model Training](#model-training)
 - [API Integration](#api-integration)
+- [Screenshots](#screenshots)
 - [Future Enhancements](#future-enhancements)
 - [Contributing](#contributing)
 - [License](#license)
@@ -46,11 +48,31 @@ SnapCal is a web application that uses machine learning to identify food items f
 - **API**: Nutrition API by API Ninjas
 - **Frontend**: HTML, CSS, JavaScript
 
+## 📂 Project Structure
+
+```
+SnapCal/
+│
+├── app.py                 # Main Flask application
+├── model_trained.h5       # Trained machine learning model
+├── Food_List.csv          # List of food categories
+├── templates/             # HTML templates
+│   ├── home.html          # Login page
+│   ├── signup.html        # Registration page
+│   ├── forget_password.html
+│   ├── upload.html        # Image upload page
+│   ├── result.html        # Prediction results
+│   └── nutrition.html     # Nutritional information
+├── static/                # Static assets (CSS, JS, images)
+└── training/              # Model training scripts
+    └── train_model.py     # Script for training the food recognition model
+```
+
 ## 🚀 Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/parth0774/SnapCal.git
+   git clone https://github.com/your-username/snapcal.git
    cd snapcal
    ```
 
@@ -153,24 +175,30 @@ SnapCal integrates with the Nutrition API by API Ninjas to fetch detailed nutrit
 
 ## 🚀 Future Enhancements
 
-- User history and meal tracking
-- Daily nutritional summaries
-- Meal recommendations based on dietary goals
-- Barcode scanning for packaged foods
-- Multi-item recognition for complete meal analysis
-- Mobile app development
-- Offline functionality
+- [ ] User history and meal tracking
+- [ ] Daily nutritional summaries
+- [ ] Meal recommendations based on dietary goals
+- [ ] Barcode scanning for packaged foods
+- [ ] Multi-item recognition for complete meal analysis
+- [ ] Mobile app development
+- [ ] Offline functionality
 
 ## 👥 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
-2. Create your feature branch
-3. Commit your changes 
-4. Push to the branch 
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
 <p align="center">
-  Made By Parth Patel
+  Made with ❤️ by [Your Name]
 </p>
