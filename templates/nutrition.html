@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Facts</title>
+    <style>
+        body {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('/static/Designer.png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Nutrition Facts: {{ nutrient.name }}</h2>
+        <table>
+            <tr>
+                <th>Nutrient</th>
+                <th>Amount per {{ nutrient.serving_size_g }}g</th>
+            </tr>
+            <tr>
+                <td>Calories</td>
+                <td>{{ nutrient.calories }}</td>
+            </tr>
+            <tr>
+                <td>Fat (Total)</td>
+                <td>{{ nutrient.fat_total_g }}g</td>
+            </tr>
+            <tr>
+                <td>Fat (Saturated)</td>
+                <td>{{ nutrient.fat_saturated_g }}g</td>
+            </tr>
+            <tr>
+                <td>Protein</td>
+                <td>{{ nutrient.protein_g }}g</td>
+            </tr>
+            <tr>
+                <td>Sodium</td>
+                <td>{{ nutrient.sodium_mg }}mg</td>
+            </tr>
+            <tr>
+                <td>Potassium</td>
+                <td>{{ nutrient.potassium_mg }}mg</td>
+            </tr>
+            <tr>
+                <td>Cholesterol</td>
+                <td>{{ nutrient.cholesterol_mg }}mg</td>
+            </tr>
+            <tr>
+                <td>Carbohydrates (Total)</td>
+                <td>{{ nutrient.carbohydrates_total_g }}g</td>
+            </tr>
+            <tr>
+                <td>Fiber</td>
+                <td>{{ nutrient.fiber_g }}g</td>
+            </tr>
+            <tr>
+                <td>Sugar</td>
+                <td>{{ nutrient.sugar_g }}g</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <form method="POST" action="/logout">
+            <button class="logout-button" type="submit">Logout</button>
+        </form>
+    </div>
+    
+</body>
+</html>
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Facts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Nutrition Facts : {{ nutrient.name }}</h2>
+    <table>
+        <tr>
+            <th>Nutrient</th>
+            <th>Amount per {{ nutrient.serving_size_g }}g</th>
+        </tr>
+        <tr>
+            <td>Calories</td>
+            <td>{{ nutrient.calories }}</td>
+        </tr>
+        <tr>
+            <td>Fat (Total)</td>
+            <td>{{ nutrient.fat_total_g }}g</td>
+        </tr>
+        <tr>
+            <td>Fat (Saturated)</td>
+            <td>{{ nutrient.fat_saturated_g }}g</td>
+        </tr>
+        <tr>
+            <td>Protein</td>
+            <td>{{ nutrient.protein_g }}g</td>
+        </tr>
+        <tr>
+            <td>Sodium</td>
+            <td>{{ nutrient.sodium_mg }}mg</td>
+        </tr>
+        <tr>
+            <td>Potassium</td>
+            <td>{{ nutrient.potassium_mg }}mg</td>
+        </tr>
+        <tr>
+            <td>Cholesterol</td>
+            <td>{{ nutrient.cholesterol_mg }}mg</td>
+        </tr>
+        <tr>
+            <td>Carbohydrates (Total)</td>
+            <td>{{ nutrient.carbohydrates_total_g }}g</td>
+        </tr>
+        <tr>
+            <td>Fiber</td>
+            <td>{{ nutrient.fiber_g }}g</td>
+        </tr>
+        <tr>
+            <td>Sugar</td>
+            <td>{{ nutrient.sugar_g }}g</td>
+        </tr>
+    </table>
+</body>
+</html> -->

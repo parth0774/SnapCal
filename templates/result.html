@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <style>
+        img {
+            max-width: 300px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('/static/Designer.png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+        .result-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .predicted-name {
+            background-color: #f2f2f2;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333333;
+        }
+        .food-weight {
+            background-color: #f2f2f2;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff0000;
+        }
+        .selected {
+            font-weight: bold;
+        }
+        .confirm-btn {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .confirm-btn:hover {
+            background-color: #45a049; /* Darker green */
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h1>Predicted Food:</h1>
+        <!-- Display the image using base64 encoding -->
+        <img src="data:image/png;base64,{{ image }}" alt="Uploaded Image">
+        
+        {% if selected_food %}
+        <form action="/getNutrient" method="post">
+            <input type="hidden" name="confirmedValue" value="{{selected_food}}">
+            <div class="predicted-name">Selected Food: {{ selected_food }}</div>
+            <div class="food-weight">
+                <span>Enter approx. weight of food in grams</span>
+                <input type="number" name="weight">
+            </div>
+            <button class="confirm-btn" type="submit">Get Nutrient</button>
+        </form>
+        {% else %}
+        <h2>Please Confirm Recognized Food Item</h2>
+        <form action="/verifyResult" method="post">
+            {% for prediction in top_predictions %}
+                <label>
+                    <input type="radio" name="food_prediction" value="{{ prediction[0] }}">
+                    <span class="{% if prediction[0] == selected_prediction %}selected{% endif %}">{{prediction[0]}} Confidence: {{((prediction[1]*1000)/10.0) | round(3)}}%</span><br>
+                </label>
+            {% endfor %}
+            <button class="confirm-btn" type="submit">Confirm</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>
