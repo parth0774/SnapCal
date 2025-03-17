@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
             display: flex;
             align-items: center;
@@ -14,93 +22,372 @@
             background-image: url('/static/Designer.png'); 
             background-size: cover;
             background-position: center;
-            font-family: Arial, sans-serif;
+            background-attachment: fixed;
+            overflow: hidden;
+            position: relative;
         }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%);
+            z-index: 0;
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+
         .container {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 380px;
+            max-width: 90%;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            transform: translateY(20px);
+            opacity: 0;
         }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background-color: #4e6bff;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(78, 107, 255, 0.4);
+        }
+
+        .logo svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
         .container h2 {
             text-align: center;
             margin-bottom: 30px;
             color: #333;
+            font-size: 28px;
+            font-weight: 600;
         }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(10px);
         }
+
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #555;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
+
         .form-group input[type="text"],
         .form-group input[type="password"] {
-            width: calc(100% - 22px);
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-            color: #333;
-        }
-        .form-group button {
             width: 100%;
-            padding: 12px;
+            padding: 15px 20px;
             border: none;
-            border-radius: 5px;
-            background-color: #4caf50;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            border-radius: 12px;
+            background-color: #f0f5ff;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            color: #333;
+            font-size: 16px;
+            transition: all 0.3s ease;
         }
-        .form-group button:hover {
-            background-color: #45a049;
-        }
-        .form-group button:focus {
+
+        .form-group input:focus {
+            background-color: #e6edff;
+            box-shadow: inset 0 2px 4px rgba(78, 107, 255, 0.15);
             outline: none;
         }
+
+        .form-group button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4e6bff 0%, #3f51b5 100%);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(78, 107, 255, 0.3);
+        }
+
+        .form-group button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(78, 107, 255, 0.4);
+        }
+
+        .form-group button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(78, 107, 255, 0.3);
+        }
+
         .form-group a {
             display: block;
             text-align: center;
             margin-top: 10px;
-            color: #007bff;
+            color: #4e6bff;
             text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
+
         .form-group a:hover {
-            text-decoration: underline;
+            color: #3f51b5;
+            transform: translateY(-1px);
+        }
+
+        .signup-btn {
+            background: transparent !important;
+            border: 2px solid #4e6bff !important;
+            color: #4e6bff !important;
+            box-shadow: none !important;
+        }
+
+        .signup-btn:hover {
+            background: rgba(78, 107, 255, 0.1) !important;
+        }
+
+        .message {
+            text-align: center;
+            color: #ff4d4d;
+            margin-top: 10px;
+            font-size: 14px;
+            height: 20px;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            color: #999;
+        }
+
+        /* Floating labels */
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            padding-left: 45px !important;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4e6bff;
+            font-size: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Animation for form fields on focus */
+        .form-group input:focus + i {
+            color: #3f51b5;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+<div class="particles" id="particles"></div>
 
-<div class="container">
-    <h2>Login</h2>
-    <form action="/" method="post">
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+<div class="container" id="loginContainer">
+    <div class="logo-container">
+        <div class="logo">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/>
+                <path d="M16 7h-2v4h-4V7H8v10h2v-4h4v4h2z"/>
+            </svg>
         </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+    </div>
+    <h2>Welcome Back</h2>
+    <form action="/" method="post" id="loginForm">
+        <div class="form-group" id="formGroup1">
+            <label for="username">Username</label>
+            <div class="input-wrapper">
+                <input type="text" id="username" name="username" required autocomplete="off">
+                <i class="fas fa-user"></i>
+            </div>
         </div>
-        <div class="form-group">
-            <button type="submit">Login</button>
+        <div class="form-group" id="formGroup2">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+                <input type="password" id="password" name="password" required>
+                <i class="fas fa-lock"></i>
+            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="formGroup3">
+            <button type="submit">
+                <span>Login</span>
+            </button>
+        </div>
+        <div class="form-group" id="formGroup4">
             <a href="/forget_password">Forgot Password?</a>
         </div>
-        <div class="form-group">
-            <button class="signup-btn" type="button" onclick="window.location.href='/signup'">Sign Up</button>
+        <div class="form-group" id="formGroup5">
+            <button class="signup-btn" type="button" onclick="window.location.href='/signup'">Create Account</button>
         </div>
-        <div>
-            <label >{{message}}</label>
-        </div>
+        <div class="message" id="message">{{message}}</div>
     </form>
-    
 </div>
+
+<script>
+    // Initialize GSAP animations
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate container
+        gsap.to('#loginContainer', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+        });
+
+        // Animate form groups with stagger
+        gsap.to('.form-group', {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            delay: 0.3,
+            ease: 'power2.out'
+        });
+
+        // Create particles
+        createParticles();
+    });
+
+    // Login button animation
+    document.querySelector('button[type="submit"]').addEventListener('mouseenter', function() {
+        gsap.to(this, {
+            scale: 1.03,
+            duration: 0.2
+        });
+    });
+
+    document.querySelector('button[type="submit"]').addEventListener('mouseleave', function() {
+        gsap.to(this, {
+            scale: 1,
+            duration: 0.2
+        });
+    });
+
+    // Create floating particles
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 20;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const size = Math.random() * 5 + 2;
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random positions
+            const posX = Math.random() * window.innerWidth;
+            const posY = Math.random() * window.innerHeight;
+            
+            // Set styles
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}px`;
+            particle.style.top = `${posY}px`;
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
+            
+            particlesContainer.appendChild(particle);
+            
+            // Animate each particle
+            gsap.to(particle, {
+                x: Math.random() * 100 - 50,
+                y: Math.random() * 100 - 50,
+                duration: Math.random() * 10 + 10,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+        }
+    }
+
+    // Form submission animation
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        if (!this.checkValidity()) return;
+        
+        const button = this.querySelector('button[type="submit"]');
+        const buttonText = button.querySelector('span');
+        
+        // Button animation
+        gsap.to(buttonText, {
+            opacity: 0,
+            y: -10,
+            duration: 0.2,
+            onComplete: function() {
+                buttonText.textContent = "Logging in...";
+                gsap.to(buttonText, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.2
+                });
+            }
+        });
+    });
+
+    // Input focus animations
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            const wrapper = this.parentElement;
+            gsap.to(wrapper, {
+                scale: 1.02,
+                duration: 0.3,
+                ease: 'power1.out'
+            });
+        });
+        
+        input.addEventListener('blur', function() {
+            const wrapper = this.parentElement;
+            gsap.to(wrapper, {
+                scale: 1,
+                duration: 0.3,
+                ease: 'power1.out'
+            });
+        });
+    });
+</script>
 </body>
 </html>

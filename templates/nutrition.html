@@ -4,197 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutrition Facts</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-image: url('/static/Designer.png');
-            background-size: cover;
-            background-position: center;
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f7f9fc;
         }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
-        h2 {
-            margin-top: 0;
-            text-align: center;
-            color: #333;
+        .card:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+        .nutrition-row {
+            border-bottom: 1px solid #edf2f7;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            background-color: #4caf50;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        button:focus {
-            outline: none;
+        .nutrition-row:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h2>Nutrition Facts: {{ nutrient.name }}</h2>
-        <table>
-            <tr>
-                <th>Nutrient</th>
-                <th>Amount per {{ nutrient.serving_size_g }}g</th>
-            </tr>
-            <tr>
-                <td>Calories</td>
-                <td>{{ nutrient.calories }}</td>
-            </tr>
-            <tr>
-                <td>Fat (Total)</td>
-                <td>{{ nutrient.fat_total_g }}g</td>
-            </tr>
-            <tr>
-                <td>Fat (Saturated)</td>
-                <td>{{ nutrient.fat_saturated_g }}g</td>
-            </tr>
-            <tr>
-                <td>Protein</td>
-                <td>{{ nutrient.protein_g }}g</td>
-            </tr>
-            <tr>
-                <td>Sodium</td>
-                <td>{{ nutrient.sodium_mg }}mg</td>
-            </tr>
-            <tr>
-                <td>Potassium</td>
-                <td>{{ nutrient.potassium_mg }}mg</td>
-            </tr>
-            <tr>
-                <td>Cholesterol</td>
-                <td>{{ nutrient.cholesterol_mg }}mg</td>
-            </tr>
-            <tr>
-                <td>Carbohydrates (Total)</td>
-                <td>{{ nutrient.carbohydrates_total_g }}g</td>
-            </tr>
-            <tr>
-                <td>Fiber</td>
-                <td>{{ nutrient.fiber_g }}g</td>
-            </tr>
-            <tr>
-                <td>Sugar</td>
-                <td>{{ nutrient.sugar_g }}g</td>
-            </tr>
-        </table>
-    </div>
-    <div>
-        <form method="POST" action="/logout">
-            <button class="logout-button" type="submit">Logout</button>
-        </form>
-    </div>
-    
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-indigo-600">NutriScan</span>
+                </div>
+                <div class="flex items-center">
+                    <button class="ml-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md text-gray-700 transition duration-200">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-lg mx-auto py-8 px-4">
+        <div class="card bg-white rounded-lg overflow-hidden">
+            <div class="bg-indigo-600 py-4 px-6">
+                <h1 class="text-2xl font-bold text-white">Nutrition Facts: {{ nutrient.name }}</h1>
+                <p class="text-indigo-100">Serving size: {{ nutrient.serving_size_g }}g</p>
+            </div>
+            
+            <div class="p-6">
+                <div class="mb-6 pb-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold">{{ nutrient.calories }}</h2>
+                        <span class="text-gray-600">Calories</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="nutrition-row flex justify-between py-2">
+                        <span class="font-medium">Fat (Total)</span>
+                        <span>{{ nutrient.fat_total_g }}g</span>
+                    </div>
+                    <div class="nutrition-row flex justify-between py-2 pl-4">
+                        <span class="text-gray-600">Saturated Fat</span>
+                        <span>{{ nutrient.fat_saturated_g }}g</span>
+                    </div>
+                    <div class="nutrition-row flex justify-between py-2">
+                        <span class="font-medium">Cholesterol</span>
+                        <span>{{ nutrient.cholesterol_mg }}mg</span>
+                    </div>
+                    <div class="nutrition-row flex justify-between py-2">
+                        <span class="font-medium">Sodium</span>
+                        <span>{{ nutrient.sodium_mg }}mg</span>
+                    </div>
+                    <div class="nutrition-row flex justify-between py-2">
+                        <span class="font-medium">Potassium</span>
+                        <span>{{ nutrient.potassium_mg }}mg</span>
+                    </div>
+                    <div class="nutrition-row flex justify-between py-2">
+                        <span class="font-medium">Carbohydrates (Total)</span>
+                        <span>{{ nutrient.carbohydrates_total_g }}g</span>
+                    </div>
+                    <div class="nutrition-row flex justify-between py-2 pl-4">
+                        <span class="text-gray-600">Fiber</span>
+                        <span>{{ nutrient.fiber_g }}g</span>
+                    </div>
+                    <div class="nutrition-row flex justify-between py-2 pl-4">
+                        <span class="text-gray-600">Sugar</span>
+                        <span>{{ nutrient.sugar_g }}g</span>
+                    </div>
+                    <div class="nutrition-row flex justify-between py-2">
+                        <span class="font-medium">Protein</span>
+                        <span>{{ nutrient.protein_g }}g</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 px-6 py-4">
+                <a href="upload.html" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    Back to scan
+                </a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutrition Facts</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-    <h2>Nutrition Facts : {{ nutrient.name }}</h2>
-    <table>
-        <tr>
-            <th>Nutrient</th>
-            <th>Amount per {{ nutrient.serving_size_g }}g</th>
-        </tr>
-        <tr>
-            <td>Calories</td>
-            <td>{{ nutrient.calories }}</td>
-        </tr>
-        <tr>
-            <td>Fat (Total)</td>
-            <td>{{ nutrient.fat_total_g }}g</td>
-        </tr>
-        <tr>
-            <td>Fat (Saturated)</td>
-            <td>{{ nutrient.fat_saturated_g }}g</td>
-        </tr>
-        <tr>
-            <td>Protein</td>
-            <td>{{ nutrient.protein_g }}g</td>
-        </tr>
-        <tr>
-            <td>Sodium</td>
-            <td>{{ nutrient.sodium_mg }}mg</td>
-        </tr>
-        <tr>
-            <td>Potassium</td>
-            <td>{{ nutrient.potassium_mg }}mg</td>
-        </tr>
-        <tr>
-            <td>Cholesterol</td>
-            <td>{{ nutrient.cholesterol_mg }}mg</td>
-        </tr>
-        <tr>
-            <td>Carbohydrates (Total)</td>
-            <td>{{ nutrient.carbohydrates_total_g }}g</td>
-        </tr>
-        <tr>
-            <td>Fiber</td>
-            <td>{{ nutrient.fiber_g }}g</td>
-        </tr>
-        <tr>
-            <td>Sugar</td>
-            <td>{{ nutrient.sugar_g }}g</td>
-        </tr>
-    </table>
-</body>
-</html> -->
