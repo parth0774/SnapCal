@@ -24,10 +24,6 @@
 
 SnapCal is a web application that uses machine learning to identify food items from uploaded images and provides detailed nutritional information including calorie content. Simply take a photo of your meal, upload it, and the app will determine what food it is and display its nutritional profile.
 
-<p align="center">
-  <img src="https://via.placeholder.com/700x400" alt="SnapCal Demo Animation">
-</p>
-
 ## ✨ Features
 
 - **Food Recognition**: Uses a deep learning model trained on the Food-101 dataset to identify food items from images
@@ -100,6 +96,8 @@ SnapCal is a web application that uses machine learning to identify food items f
 
 The food recognition model was built using transfer learning with MobileNetV2 as the base architecture. It was trained on the Food-101 dataset containing 101,000 images across 101 food categories.
 
+Food101-Dataset [[Click Here](https://www.kaggle.com/datasets/dansbecker/food-101)]
+
 ### Training Process:
 
 1. Data preparation and augmentation
@@ -132,23 +130,13 @@ SnapCal integrates with the Nutrition API by API Ninjas to fetch detailed nutrit
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="https://via.placeholder.com/400x250" alt="Login Screen">
   <em>Login Screen</em>
+  <img src="Images/LoginPage.png" alt="Login Screen">
 </p>
 
 <p align="center">
-  <img src="https://via.placeholder.com/400x250" alt="Food Upload">
-  <em>Food Upload Interface</em>
-</p>
-
-<p align="center">
-  <img src="https://via.placeholder.com/400x250" alt="Prediction Results">
-  <em>Prediction Results</em>
-</p>
-
-<p align="center">
-  <img src="https://via.placeholder.com/400x250" alt="Nutritional Information">
-  <em>Nutritional Information</em>
+  <em>Prediction Results and Nutriton Information</em>
+  <img src="Images/NutritionFact.png" alt="Prediction Results">
 </p>
 
 ## 🚀 Future Enhancements
