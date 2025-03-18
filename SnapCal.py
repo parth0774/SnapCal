@@ -8,8 +8,8 @@ import requests
 import os
 from werkzeug.utils import secure_filename
 import tensorflow as tf
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.models import load_model
+from keras.src import image
+from keras.src import load_model
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # Consider using environment variables for this
